@@ -17,36 +17,6 @@ The application adheres to a highly customized, premium visual design system, ut
 
 PakBridge AI is built on a highly decoupled, three-tier agentic architecture:
 
-```mermaid
-graph TD
-    subgraph Client [Presentation & State Layer (React Native / Expo)]
-        UI[Expo Router UI Views]
-        Store[Zustand Stores: crisisStore, authStore]
-        Banner[Notification Banner Component]
-    end
-
-    subgraph Intelligence [Cognitive Agent Layer]
-        Gemini[Gemini 2.5 Flash Model]
-        Parser[Geo-Intelligence Parser - AREA_MAP]
-    end
-
-    subgraph Backend [Data & Messaging Layer]
-        Auth[Firebase Auth - AsyncStorage Persistence]
-        DB[Firestore Real-time DB]
-        Push[Expo Notifications Service]
-    end
-
-    UI --> Store
-    Store <--> DB
-    Store <--> Auth
-    UI --> Banner
-    
-    UI -- 1. Submit Description --> Gemini
-    Gemini -- 2. Structured JSON Assessment --> Store
-    Parser -- 3. Sub-neighborhood Geo-Coords --> Store
-    Store -- 4. Multi-Agent Pipeline --> UI
-```
-
 ### 1. Data & Persistence Layer
 *   **Firebase Firestore**: Serves as the primary real-time synchronization backend. Every reported incident, sensor telemetry feed, roadblock, and authority status is synced instantaneously across all clients using native `onSnapshot` subscriptions.
 *   **Firebase Authentication (Session Persistence)**: Supports secure anonymous authentication. Integrates `@react-native-async-storage/async-storage` (v2) persistent storage into the firebase initialization flow to ensure user profiles are securely retained across device reboots and session restarts.
