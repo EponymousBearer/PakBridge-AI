@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PakBridge AI | Crisis Intelligence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Hanken+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#0035bd",
+                        "on-tertiary-fixed-variant": "#930005",
+                        "secondary-fixed": "#74f5ff",
+                        "background": "#0f131f",
+                        "on-tertiary-container": "#ffece9",
+                        "tertiary-container": "#d71a18",
+                        "tertiary": "#ffb4aa",
+                        "on-primary-container": "#efefff",
+                        "surface": "#0f131f",
+                        "tertiary-fixed": "#ffdad5",
+                        "primary-fixed": "#dde1ff",
+                        "inverse-on-surface": "#2c303d",
+                        "on-primary-fixed": "#001355",
+                        "surface-container-high": "#262a37",
+                        "outline-variant": "#434656",
+                        "on-secondary-fixed": "#002022",
+                        "surface-container": "#1b1f2c",
+                        "on-error": "#690005",
+                        "tertiary-fixed-dim": "#ffb4aa",
+                        "on-secondary-fixed-variant": "#004f54",
+                        "on-background": "#dfe2f3",
+                        "primary-container": "#2d5bff",
+                        "on-tertiary": "#690003",
+                        "on-tertiary-fixed": "#410001",
+                        "primary": "#b8c3ff",
+                        "error": "#ffb4ab",
+                        "outline": "#8e90a2",
+                        "surface-container-highest": "#313442",
+                        "on-secondary-container": "#006a70",
+                        "surface-tint": "#b8c3ff",
+                        "surface-container-low": "#171b28",
+                        "surface-container-lowest": "#0a0e1a",
+                        "error-container": "#93000a",
+                        "secondary": "#ddfcff",
+                        "on-primary": "#002387",
+                        "surface-variant": "#313442",
+                        "on-error-container": "#ffdad6",
+                        "on-surface": "#dfe2f3",
+                        "inverse-primary": "#104af0",
+                        "on-secondary": "#00363a",
+                        "surface-bright": "#353946",
+                        "inverse-surface": "#dfe2f3",
+                        "secondary-container": "#00f1fe",
+                        "on-surface-variant": "#c4c5d9",
+                        "primary-fixed-dim": "#b8c3ff",
+                        "secondary-fixed-dim": "#00dbe7",
+                        "surface-dim": "#0f131f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "stack-md": "12px",
+                        "stack-sm": "4px",
+                        "container-margin": "24px",
+                        "stack-lg": "24px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "title-md": ["Inter"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "body-md": ["Inter"],
+                        "display-lg": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "display-lg": ["56px", {"lineHeight": "64px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "26px", "fontWeight": "400"}],
+                        "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(15, 19, 31, 0.8);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+        }
+        .emergency-pulse {
+            animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(0, 241, 254, 0.4); }
+            50% { box-shadow: 0 0 20px 10px rgba(0, 241, 254, 0); }
+        }
+        .neon-pulse {
+            animation: neon-breathing 3s ease-in-out infinite;
+        }
+        @keyframes neon-breathing {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.1); }
+        }
+        .ticker-scroll {
+            animation: ticker 30s linear infinite;
+        }
+        @keyframes ticker {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface-container-lowest text-on-surface font-body-md selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- TopAppBar -->
+<header class="bg-surface/80 dark:bg-surface/80 backdrop-blur-xl text-primary dark:text-primary docked full-width top-0 sticky z-50 border-b border-white/10 shadow-sm flex justify-between items-center px-container-margin h-16 w-full">
+<div class="flex items-center gap-stack-md">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container" data-icon="account_circle">account_circle</span>
+</div>
+<span class="text-title-md font-title-md font-bold text-secondary-container dark:text-secondary-container tracking-tight">PakBridge AI</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-white/5 transition-colors p-2 rounded-full" data-icon="notifications">notifications</button>
+<button class="md:hidden material-symbols-outlined text-on-surface-variant" data-icon="menu" onclick="document.getElementById('mobile-drawer').classList.toggle('-translate-x-full')">menu</button>
+</div>
+</header>
+<!-- News Ticker -->
+<div class="bg-surface-container-high h-10 flex items-center overflow-hidden whitespace-nowrap border-b border-white/5 relative z-40">
+<div class="ticker-scroll flex items-center gap-8 px-4">
+<span class="flex items-center gap-2 text-label-sm font-label-sm text-secondary-container">
+<span class="w-2 h-2 rounded-full bg-secondary-container emergency-pulse"></span>
+                LIVE: SEVERE FLOOD WARNING ISSUED FOR NORTHERN SWAT REGION - EVACUATION IN PROGRESS
+            </span>
+<span class="flex items-center gap-2 text-label-sm font-label-sm text-on-surface-variant">
+<span class="w-2 h-2 rounded-full bg-on-surface-variant"></span>
+                TRAFFIC ALERT: ISLAMABAD EXPRESSWAY CLEARED AFTER EARLIER INCIDENT
+            </span>
+<span class="flex items-center gap-2 text-label-sm font-label-sm text-tertiary">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+                WEATHER: KARACHI HEATWAVE ALERT LEVEL 2 SUSTAINED FOR NEXT 48 HOURS
+            </span>
+</div>
+</div>
+<main class="max-w-7xl mx-auto px-container-margin py-stack-lg pb-32">
+<!-- Hero Banner -->
+<section class="mb-stack-lg">
+<div class="glass-card rounded-xl p-8 relative overflow-hidden group">
+<div class="absolute -right-20 -top-20 w-64 h-64 bg-secondary-container/10 rounded-full blur-3xl group-hover:bg-secondary-container/20 transition-all duration-700"></div>
+<div class="relative z-10 flex flex-col md:flex-row items-center gap-8">
+<div class="flex-1">
+<div class="flex items-center gap-3 mb-4">
+<span class="px-3 py-1 rounded-full bg-error-container text-on-error-container text-label-sm font-label-sm flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-error emergency-pulse"></span>
+                                EMERGENCY PROTOCOL ACTIVE
+                            </span>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg mb-4 text-on-surface">Facing an Emergency?</h1>
+<p class="text-body-lg font-body-lg text-on-surface-variant max-w-xl">
+                            Our Crisis Intelligence AI is monitoring real-time data to provide immediate assistance and accurate guidance during volatile situations across Pakistan.
+                        </p>
+</div>
+<div class="w-full md:w-auto">
+<button class="w-full md:w-auto px-8 py-4 rounded-xl bg-primary-container text-on-primary-container font-title-md text-title-md hover:bg-inverse-primary transition-all shadow-[0_0_20px_rgba(45,91,255,0.3)] active:scale-95 duration-150 flex items-center justify-center gap-3">
+<span class="material-symbols-outlined" data-icon="shield_with_heart">shield_with_heart</span>
+                            Get Immediate Help
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Live System Status -->
+<section class="mb-stack-lg overflow-x-auto pb-4">
+<div class="flex gap-gutter min-w-max md:min-w-0 md:grid md:grid-cols-3">
+<div class="glass-card p-stack-lg rounded-xl flex items-center gap-4 w-72 md:w-auto">
+<div class="w-12 h-12 rounded-lg bg-secondary-container/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary-container neon-pulse" data-icon="smart_toy">smart_toy</span>
+</div>
+<div>
+<div class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Active Agents</div>
+<div class="text-title-md font-title-md text-on-surface">1,248 Neural Nodes</div>
+</div>
+</div>
+<div class="glass-card p-stack-lg rounded-xl flex items-center gap-4 w-72 md:w-auto border-l-2 border-l-tertiary-container">
+<div class="w-12 h-12 rounded-lg bg-tertiary-container/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary-container" data-icon="emergency_share">emergency_share</span>
+</div>
+<div>
+<div class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Ongoing Incidents</div>
+<div class="text-title-md font-title-md text-on-surface">14 High-Priority</div>
+</div>
+</div>
+<div class="glass-card p-stack-lg rounded-xl flex items-center gap-4 w-72 md:w-auto">
+<div class="w-12 h-12 rounded-lg bg-primary-container/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-container" data-icon="campaign">campaign</span>
+</div>
+<div>
+<div class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">Emergency Alerts</div>
+<div class="text-title-md font-title-md text-on-surface">03 Active Regions</div>
+</div>
+</div>
+</div>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Recent AI Detections (Vertical List) -->
+<div class="lg:col-span-8 flex flex-col gap-gutter">
+<h2 class="text-title-md font-title-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary-container" data-icon="radar">radar</span>
+                    Recent AI Detections
+                </h2>
+<div class="glass-card p-6 rounded-xl hover:bg-white/5 transition-colors cursor-pointer flex flex-col md:flex-row gap-6 items-start">
+<div class="w-full md:w-32 h-32 rounded-lg overflow-hidden shrink-0">
+<img class="w-full h-full object-cover grayscale-[0.5] group-hover:grayscale-0 transition-all" data-alt="A dramatic aerial view of a river overflowing its banks in a lush green valley. The water is muddy and turbulent, sweeping through rural landscapes under a heavy, grey storm sky. The overall aesthetic is cinematic and high-contrast, utilizing the deep navy and electric blue tones of the command center interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDP-GpaZC1Wn4X3lOym8G3G92VhKkKJPsL_aEoNgDXZbEDi_AnmyTBHpU4vccgDK5q2yotWl5WY3h3qVd_GH_hIEDVWMImNlWVIjfnmbE2pTzSZFo20989Ip3FYGHYGdqNma17A0Ctft4NVGzUg8fA_9vtqVhHUPI3Ytt9OShTK5gcDXkRs0ubJa3B_lsru-xrknTQ4dmowS98bdhmTpLlFR4BEeYD2FLln237a-zzVYrcGMPQifK_BWAfSN7KyHDynH6vjeBZBT5k"/>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between mb-2">
+<span class="bg-error-container text-on-error-container px-2 py-0.5 rounded text-label-sm font-label-sm uppercase tracking-tighter">Severe Flood</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">2m ago</span>
+</div>
+<h3 class="text-title-md font-title-md mb-2">Flood Warning — Swat Valley</h3>
+<p class="text-body-md font-body-md text-on-surface-variant mb-4">Neural analysis indicates rising water levels exceeding safety thresholds. Immediate evacuation recommended for low-lying sectors.</p>
+<div class="flex items-center gap-4">
+<span class="flex items-center gap-1 text-label-sm font-label-sm text-secondary-container">
+<span class="material-symbols-outlined text-sm" data-icon="verified_user">verified_user</span>
+                                AI Confirmed
+                            </span>
+<span class="flex items-center gap-1 text-label-sm font-label-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="location_on">location_on</span>
+                                Khyber Pakhtunkhwa
+                            </span>
+</div>
+</div>
+<div class="self-center hidden md:block">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+<div class="glass-card p-6 rounded-xl hover:bg-white/5 transition-colors cursor-pointer flex flex-col md:flex-row gap-6 items-start">
+<div class="w-full md:w-32 h-32 rounded-lg overflow-hidden shrink-0">
+<img class="w-full h-full object-cover grayscale-[0.5]" data-alt="A high-tech digital representation of medical data showing a heartbeat pulse over a dark city map of Lahore. The scene uses neon cyan and electric blue glowing lines to simulate active neural processing and medical telemetry in a modern, futuristic command center environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAAA_0nHKHPM_X7fTnn12gRh6yREHhK0Ul4Wv3-zn2tnXzttMdWGscexO2x2MykPOFZx2W8MmJAofz1tK6vpIQ3ZjRtShgD5cLHR1Qiiunc5JGLn5vZdumUCJlpPAZwQARhhNjx7AreVQeH4Nqo-RZs8Myutlm9UMzrvTP9DSQvtG4DE-AMbwxEmeoKPN733AgkZUN6plddHXZ0VPo4LDfVPenQTwHC3TWg4E4LDMSsFs_ARpCgAAxDrJ22Jrd5JiabqIELXEJedmI"/>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between mb-2">
+<span class="bg-tertiary-container text-on-tertiary-container px-2 py-0.5 rounded text-label-sm font-label-sm uppercase tracking-tighter">Life Safety</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">14m ago</span>
+</div>
+<h3 class="text-title-md font-title-md mb-2">Medical Emergency — Gulberg Lahore</h3>
+<p class="text-body-md font-body-md text-on-surface-variant mb-4">Multiple distress signals detected in commercial zone. Rescue 1122 units dispatched and routed via AI-optimized traffic paths.</p>
+<div class="flex items-center gap-4">
+<span class="flex items-center gap-1 text-label-sm font-label-sm text-secondary-container">
+<span class="material-symbols-outlined text-sm" data-icon="pulse">pause</span>
+                                Active Dispatch
+                            </span>
+</div>
+</div>
+<div class="self-center hidden md:block">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+<div class="glass-card p-6 rounded-xl hover:bg-white/5 transition-colors cursor-pointer flex flex-col md:flex-row gap-6 items-start border-l-4 border-l-tertiary">
+<div class="w-full md:w-32 h-32 rounded-lg overflow-hidden shrink-0">
+<img class="w-full h-full object-cover grayscale-[0.5]" data-alt="A thermal satellite imagery visualization of Karachi city showing intense heat zones in vibrant oranges and reds against a deep navy night background. The aesthetic is data-heavy and technical, reflecting a high-stakes government monitoring dashboard with precise digital overlays and glowing markers." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDezHe8qNZFPEVs_pJKvQHpwY7EdNPaUb9TV8rnayi_iLLRhiQWZQ7W1tFZDn0VmCgLPxebDHWx0c0tg865LE8dAmmjb-Hbn5VS-GNo68C_if3PDMR-PANlR13j5nHq2i3YyhY6Vw-viKKd79RWQWqQERBpaEor_rmSERSpP08kMa1I8uD7DT_RKW1zfzdvT45b7lZVrhKdQJXoHujcsO1VnQJ3jEqMWMczZDKqdkt9HKN5IBtmuFgrpSB-_2V2MkftehtlA5G31F4"/>
+</div>
+<div class="flex-1">
+<div class="flex items-center justify-between mb-2">
+<span class="bg-primary-container text-on-primary-container px-2 py-0.5 rounded text-label-sm font-label-sm uppercase tracking-tighter">Environmental</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">45m ago</span>
+</div>
+<h3 class="text-title-md font-title-md mb-2">Heatwave Alert — Karachi</h3>
+<p class="text-body-md font-body-md text-on-surface-variant mb-4">Temperature indices reaching critical 45°C. Cooling centers in District South are now at 85% capacity. Water tankers deployed.</p>
+<div class="flex items-center gap-4">
+<span class="flex items-center gap-1 text-label-sm font-label-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="device_thermostat">device_thermostat</span>
+                                Alert Level 2
+                            </span>
+</div>
+</div>
+<div class="self-center hidden md:block">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Side Column -->
+<div class="lg:col-span-4 flex flex-col gap-gutter">
+<!-- AI Assistant Preview -->
+<div class="glass-card p-6 rounded-xl border-t-2 border-t-secondary-container/50">
+<div class="flex items-center gap-4 mb-4">
+<div class="relative">
+<div class="w-12 h-12 rounded-full bg-gradient-to-br from-secondary-container to-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary" data-icon="support_agent">support_agent</span>
+</div>
+<span class="absolute bottom-0 right-0 w-3 h-3 bg-secondary-container rounded-full border-2 border-surface neon-pulse"></span>
+</div>
+<div>
+<h3 class="text-title-md font-title-md">AI Assistant</h3>
+<p class="text-label-sm font-label-sm text-secondary-container uppercase">Ready to help</p>
+</div>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant mb-4">"I'm currently tracking 3 incidents in your vicinity. Ask me for the safest route or nearest resources."</p>
+<button class="w-full py-3 rounded-lg bg-surface-container-high border border-white/10 text-on-surface font-title-md hover:bg-white/5 transition-all text-sm flex items-center justify-center gap-2">
+                        Chat with Command AI
+                        <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<!-- Quick Actions Grid -->
+<div class="flex flex-col gap-4">
+<h2 class="text-title-md font-title-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="grid_view">grid_view</span>
+                        Quick Actions
+                    </h2>
+<div class="grid grid-cols-2 gap-3">
+<button class="glass-card p-4 rounded-xl flex flex-col items-center gap-2 hover:bg-tertiary-container/10 transition-all border-b-2 border-b-transparent hover:border-b-tertiary-container">
+<span class="material-symbols-outlined text-tertiary" data-icon="add_alert">add_alert</span>
+<span class="text-label-sm font-label-sm text-center">Report Emergency</span>
+</button>
+<button class="glass-card p-4 rounded-xl flex flex-col items-center gap-2 hover:bg-secondary-container/10 transition-all border-b-2 border-b-transparent hover:border-b-secondary-container">
+<span class="material-symbols-outlined text-secondary-container" data-icon="local_hospital">local_hospital</span>
+<span class="text-label-sm font-label-sm text-center">Nearby Hospitals</span>
+</button>
+<button class="glass-card p-4 rounded-xl flex flex-col items-center gap-2 hover:bg-primary-container/10 transition-all border-b-2 border-b-transparent hover:border-b-primary-container">
+<span class="material-symbols-outlined text-primary" data-icon="home_health">home_health</span>
+<span class="text-label-sm font-label-sm text-center">Safe Shelters</span>
+</button>
+<button class="glass-card p-4 rounded-xl flex flex-col items-center gap-2 hover:bg-on-surface-variant/10 transition-all border-b-2 border-b-transparent hover:border-b-on-surface-variant">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="call">call</span>
+<span class="text-label-sm font-label-sm text-center">Emergency Hotline</span>
+</button>
+</div>
+</div>
+<!-- Live Map Preview -->
+<div class="glass-card rounded-xl overflow-hidden h-48 relative">
+<img class="w-full h-full object-cover grayscale opacity-60" data-alt="A stylized digital map of Pakistan with glowing data points indicating emergency events. The map is rendered in dark monochromatic tones with electric blue and neon cyan highlights for urban centers and critical infrastructure, perfectly matching the modern crisis intelligence aesthetic." data-location="Pakistan" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJE9oNIto9Pmv1-bJED4AEFFh_yLWdCfQI57xIr6te8EaRDLlDEgbiko4AxQIYX6FSd2vtstEQSM49Wx8GoQV1-ADydi_T-SZ2mo4XjNA1wHoHzjZhMjfrqNc04CEoIiPV-76TCKu-6JRCkjslBLVLwssrrHs8nWXCUGJGNw9SjvV3haexy-r1lsqKeFODJug89en2wiEj7jejeAHADQHqZWq-q4XNIRhOpXdnovWzMJ610qes_XPGcuKUSNUKVF3oArXttCkS4vQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest to-transparent"></div>
+<div class="absolute bottom-4 left-4 right-4 flex justify-between items-end">
+<div>
+<p class="text-label-sm font-label-sm text-secondary-container uppercase">Regional Scan</p>
+<p class="text-title-md font-title-md">Interactive Radar</p>
+</div>
+<button class="p-2 rounded-full bg-secondary-container text-on-secondary-container material-symbols-outlined shadow-lg" data-icon="fullscreen">fullscreen</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Navigation Drawer (Mobile) -->
+<div class="fixed inset-0 z-[60] -translate-x-full transition-transform duration-300 md:hidden" id="mobile-drawer">
+<div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="document.getElementById('mobile-drawer').classList.add('-translate-x-full')"></div>
+<aside class="relative h-full w-80 bg-surface-container-high dark:bg-surface-container-high rounded-r-xl shadow-2xl flex flex-col gap-base py-stack-lg border-r border-white/5">
+<div class="px-6 pb-6 border-b border-white/5 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container" data-icon="person">person</span>
+</div>
+<div>
+<h3 class="text-title-md font-title-md text-primary">Command Center</h3>
+<p class="text-body-md font-body-md text-on-surface-variant">Crisis Monitor Alpha</p>
+</div>
+</div>
+<nav class="flex-1 overflow-y-auto pt-4 flex flex-col gap-1">
+<a class="flex items-center gap-4 py-3 px-6 text-on-surface-variant hover:bg-white/5 rounded-lg mx-2 hover:translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="text-body-md font-body-md">Incident History</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-on-surface-variant hover:bg-white/5 rounded-lg mx-2 hover:translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="translate">translate</span>
+<span class="text-body-md font-body-md">Language Settings</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-on-surface-variant hover:bg-white/5 rounded-lg mx-2 hover:translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="corporate_fare">corporate_fare</span>
+<span class="text-body-md font-body-md">Organization Portal</span>
+</a>
+<a class="flex items-center gap-4 py-3 px-6 text-on-surface-variant hover:bg-white/5 rounded-lg mx-2 hover:translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="policy">policy</span>
+<span class="text-body-md font-body-md">Privacy Policy</span>
+</a>
+<div class="mt-auto border-t border-white/5 pt-4">
+<a class="flex items-center gap-4 py-3 px-6 text-tertiary hover:bg-white/5 rounded-lg mx-2" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="text-body-md font-body-md">Logout</span>
+</a>
+</div>
+</nav>
+</aside>
+</div>
+<!-- SOS FAB -->
+<button class="fixed bottom-24 md:bottom-8 right-6 z-[45] w-16 h-16 rounded-full bg-tertiary-container text-on-tertiary-container shadow-[0_0_20px_rgba(215,26,24,0.5)] flex items-center justify-center transition-transform active:scale-90 emergency-pulse group">
+<span class="material-symbols-outlined text-4xl group-hover:scale-110 transition-transform" data-icon="sos" style="font-variation-settings: 'FILL' 1;">sos</span>
+</button>
+<!-- BottomNavBar (Mobile) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 bg-surface-container/90 dark:bg-surface-container/90 backdrop-blur-lg rounded-t-xl border-t border-white/5 shadow-[0_-4px_20px_rgba(0,241,254,0.1)] flex justify-around items-center h-20 px-4 pb-safe">
+<a class="flex flex-col items-center justify-center text-secondary-container dark:text-secondary-container relative after:content-[''] after:absolute after:-bottom-1 after:w-1 after:h-1 after:bg-secondary-container after:rounded-full scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="home" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="text-label-sm font-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+<span class="text-label-sm font-label-sm">AI Chat</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-label-sm font-label-sm">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+<span class="text-label-sm font-label-sm">Map</span>
+</a>
+</nav>
+<script>
+        // Micro-interactions and atmospheric effects
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        // Simulating AI activity
+        setInterval(() => {
+            const nodes = document.querySelector('[data-icon="smart_toy"]');
+            if (nodes) {
+                nodes.classList.add('scale-110');
+                setTimeout(() => nodes.classList.remove('scale-110'), 200);
+            }
+        }, 5000);
+    </script>
+</body></html>

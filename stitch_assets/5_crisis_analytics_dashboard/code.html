@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PakBridge AI | Crisis Analytics Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Hanken+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Shared Style & Tailwind Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed-variant": "#0035bd",
+                    "on-tertiary-fixed-variant": "#930005",
+                    "secondary-fixed": "#74f5ff",
+                    "background": "#0f131f",
+                    "on-tertiary-container": "#ffece9",
+                    "tertiary-container": "#d71a18",
+                    "tertiary": "#ffb4aa",
+                    "on-primary-container": "#efefff",
+                    "surface": "#0f131f",
+                    "tertiary-fixed": "#ffdad5",
+                    "primary-fixed": "#dde1ff",
+                    "inverse-on-surface": "#2c303d",
+                    "on-primary-fixed": "#001355",
+                    "surface-container-high": "#262a37",
+                    "outline-variant": "#434656",
+                    "on-secondary-fixed": "#002022",
+                    "surface-container": "#1b1f2c",
+                    "on-error": "#690005",
+                    "tertiary-fixed-dim": "#ffb4aa",
+                    "on-secondary-fixed-variant": "#004f54",
+                    "on-background": "#dfe2f3",
+                    "primary-container": "#2d5bff",
+                    "on-tertiary": "#690003",
+                    "on-tertiary-fixed": "#410001",
+                    "primary": "#b8c3ff",
+                    "error": "#ffb4ab",
+                    "outline": "#8e90a2",
+                    "surface-container-highest": "#313442",
+                    "on-secondary-container": "#006a70",
+                    "surface-tint": "#b8c3ff",
+                    "surface-container-low": "#171b28",
+                    "surface-container-lowest": "#0a0e1a",
+                    "error-container": "#93000a",
+                    "secondary": "#ddfcff",
+                    "on-primary": "#002387",
+                    "surface-variant": "#313442",
+                    "on-error-container": "#ffdad6",
+                    "on-surface": "#dfe2f3",
+                    "inverse-primary": "#104af0",
+                    "on-secondary": "#00363a",
+                    "surface-bright": "#353946",
+                    "inverse-surface": "#dfe2f3",
+                    "secondary-container": "#00f1fe",
+                    "on-surface-variant": "#c4c5d9",
+                    "primary-fixed-dim": "#b8c3ff",
+                    "secondary-fixed-dim": "#00dbe7",
+                    "surface-dim": "#0f131f"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "8px",
+                    "stack-md": "12px",
+                    "stack-sm": "4px",
+                    "container-margin": "24px",
+                    "stack-lg": "24px",
+                    "gutter": "16px"
+            },
+            "fontFamily": {
+                    "title-md": ["Inter"],
+                    "headline-lg-mobile": ["Hanken Grotesk"],
+                    "body-md": ["Inter"],
+                    "display-lg": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "body-lg": ["Inter"],
+                    "label-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "display-lg": ["56px", {"lineHeight": "64px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "26px", "fontWeight": "400"}],
+                    "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #0a0e1a;
+            color: #dfe2f3;
+        }
+        .glass-card {
+            background: rgba(27, 31, 44, 0.8);
+            backdrop-filter: blur(16px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        .neon-glow-cyan {
+            box-shadow: 0 0 12px rgba(0, 241, 254, 0.3);
+        }
+        .neon-glow-blue {
+            box-shadow: 0 0 12px rgba(45, 91, 255, 0.3);
+        }
+        .agentic-pulse {
+            animation: pulse 3s infinite ease-in-out;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; box-shadow: 0 0 5px rgba(0, 241, 254, 0.2); }
+            50% { opacity: 1; box-shadow: 0 0 20px rgba(0, 241, 254, 0.5); }
+        }
+        .chart-bar {
+            transition: height 1s ease-out;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="min-h-screen pb-24 md:pb-0 md:pl-0">
+<!-- TopAppBar -->
+<header class="bg-surface/80 dark:bg-surface/80 backdrop-blur-xl text-primary dark:text-primary docked full-width top-0 sticky z-50 border-b border-white/10 shadow-sm flex justify-between items-center px-container-margin h-16 w-full">
+<div class="flex items-center gap-3">
+<span class="text-title-md font-title-md font-bold text-secondary-container dark:text-secondary-container tracking-tight">PakBridge AI</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="hover:bg-white/5 transition-colors p-2 rounded-full active:scale-95 duration-150">
+<span class="material-symbols-outlined text-on-surface-variant dark:text-on-surface-variant">notifications</span>
+</button>
+<div class="h-8 w-8 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border border-white/10">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a high-level emergency response commander in a sleek, dark tech-integrated uniform. The lighting is dramatic and cinematic, with cool blue highlights reflecting off a glass surface in the background. The aesthetic is clean, authoritative, and futuristic, following a deep navy and electric blue color scheme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZAOqe014RMyO5RQ6vP_xZrXi-QDRZQAx3hMLPONqt-ZPZsKr9OzyNNhS6czs2Ki4EpD5YbBXIJbfG34qhI5Zh_1cYnoROskWosjf-H_56cQ0RcYp5GUOr4gTMjvM5WB8Ywr6oXGMrcLynOGrLdDgEKCS3E2605U53dZLlxSkQd5-1achXukfRqzDkNnsB7POuCXnuCPGggfUDMuG_KRttMzyLtpkoKSUuqwVPdJ1rjaEJxcdfoLEBnI2viBbFBRp1TuWbk5tZXQc"/>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto p-container-margin grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Dashboard Header -->
+<div class="md:col-span-12 mb-4">
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Crisis Analytics</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Intelligence node: Alpha-7 Reporting</p>
+</div>
+<!-- Key Stats Bento Row -->
+<div class="md:col-span-3 glass-card rounded-xl p-stack-lg flex flex-col justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant tracking-wider uppercase">Lives Assisted</span>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="font-display-lg text-headline-lg text-secondary-container">12.4k</span>
+<span class="text-green-400 text-xs font-bold">+12%</span>
+</div>
+<div class="w-full h-1 bg-surface-container mt-4 rounded-full overflow-hidden">
+<div class="h-full bg-secondary-container neon-glow-cyan" style="width: 75%"></div>
+</div>
+</div>
+<div class="md:col-span-3 glass-card rounded-xl p-stack-lg flex flex-col justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant tracking-wider uppercase">Incidents Prevented</span>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="font-display-lg text-headline-lg text-primary">842</span>
+<span class="text-green-400 text-xs font-bold">+5%</span>
+</div>
+<div class="w-full h-1 bg-surface-container mt-4 rounded-full overflow-hidden">
+<div class="h-full bg-primary neon-glow-blue" style="width: 60%"></div>
+</div>
+</div>
+<div class="md:col-span-3 glass-card rounded-xl p-stack-lg flex flex-col justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant tracking-wider uppercase">Alerts Generated</span>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="font-display-lg text-headline-lg text-tertiary">3,109</span>
+<span class="text-error text-xs font-bold">-2%</span>
+</div>
+<div class="w-full h-1 bg-surface-container mt-4 rounded-full overflow-hidden">
+<div class="h-full bg-tertiary shadow-[0_0_8px_#ffb4aa]" style="width: 45%"></div>
+</div>
+</div>
+<div class="md:col-span-3 glass-card rounded-xl p-stack-lg flex flex-col justify-between border-primary/20">
+<span class="font-label-sm text-label-sm text-on-surface-variant tracking-wider uppercase">AI Accuracy</span>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="font-display-lg text-headline-lg text-on-primary-container">99.2%</span>
+<span class="material-symbols-outlined text-secondary-container text-sm agentic-pulse">verified</span>
+</div>
+<div class="w-full h-1 bg-surface-container mt-4 rounded-full overflow-hidden">
+<div class="h-full bg-secondary-container neon-glow-cyan" style="width: 99%"></div>
+</div>
+</div>
+<!-- Main Visualization: Chart -->
+<div class="md:col-span-8 glass-card rounded-xl p-stack-lg">
+<div class="flex justify-between items-center mb-8">
+<div>
+<h3 class="font-title-md text-title-md text-on-surface">Response Time Optimization</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Manual vs AI-Assisted Dispatch (ms)</p>
+</div>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-outline"></span>
+<span class="text-xs text-on-surface-variant">Manual</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-secondary-container"></span>
+<span class="text-xs text-on-surface-variant">AI Optimized</span>
+</div>
+</div>
+</div>
+<div class="relative h-64 w-full flex items-end justify-between px-4 pb-2">
+<!-- Grid Lines -->
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none opacity-10">
+<div class="border-t border-white w-full"></div>
+<div class="border-t border-white w-full"></div>
+<div class="border-t border-white w-full"></div>
+<div class="border-t border-white w-full"></div>
+</div>
+<!-- Bars (Mock Data) -->
+<div class="flex flex-col items-center gap-2 group w-12">
+<div class="flex gap-1 items-end h-48">
+<div class="w-4 bg-outline/40 rounded-t-sm h-[80%]"></div>
+<div class="w-4 bg-secondary-container rounded-t-sm h-[30%] neon-glow-cyan"></div>
+</div>
+<span class="text-[10px] text-on-surface-variant">MON</span>
+</div>
+<div class="flex flex-col items-center gap-2 group w-12">
+<div class="flex gap-1 items-end h-48">
+<div class="w-4 bg-outline/40 rounded-t-sm h-[95%]"></div>
+<div class="w-4 bg-secondary-container rounded-t-sm h-[25%] neon-glow-cyan"></div>
+</div>
+<span class="text-[10px] text-on-surface-variant">TUE</span>
+</div>
+<div class="flex flex-col items-center gap-2 group w-12">
+<div class="flex gap-1 items-end h-48">
+<div class="w-4 bg-outline/40 rounded-t-sm h-[70%]"></div>
+<div class="w-4 bg-secondary-container rounded-t-sm h-[40%] neon-glow-cyan"></div>
+</div>
+<span class="text-[10px] text-on-surface-variant">WED</span>
+</div>
+<div class="flex flex-col items-center gap-2 group w-12">
+<div class="flex gap-1 items-end h-48">
+<div class="w-4 bg-outline/40 rounded-t-sm h-[85%]"></div>
+<div class="w-4 bg-secondary-container rounded-t-sm h-[20%] neon-glow-cyan"></div>
+</div>
+<span class="text-[10px] text-on-surface-variant">THU</span>
+</div>
+<div class="flex flex-col items-center gap-2 group w-12">
+<div class="flex gap-1 items-end h-48">
+<div class="w-4 bg-outline/40 rounded-t-sm h-[90%]"></div>
+<div class="w-4 bg-secondary-container rounded-t-sm h-[15%] neon-glow-cyan"></div>
+</div>
+<span class="text-[10px] text-on-surface-variant">FRI</span>
+</div>
+<div class="flex flex-col items-center gap-2 group w-12">
+<div class="flex gap-1 items-end h-48">
+<div class="w-4 bg-outline/40 rounded-t-sm h-[60%]"></div>
+<div class="w-4 bg-secondary-container rounded-t-sm h-[10%] neon-glow-cyan"></div>
+</div>
+<span class="text-[10px] text-on-surface-variant">SAT</span>
+</div>
+</div>
+</div>
+<!-- AI Confidence Widget -->
+<div class="md:col-span-4 glass-card rounded-xl p-stack-lg flex flex-col items-center justify-center relative overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
+<img alt="Network Pattern" class="w-full h-full object-cover" data-alt="A detailed abstract neural network visualization with interconnected nodes and fine threads of light glowing in neon cyan and electric blue against a deep navy background. The style is futuristic and data-driven, representing artificial intelligence and complex computing. Low contrast, high-tech aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvHdbdcsmq11xUKKsVma0k7BXy_SnX9Gg7am8gqykybeOFxregUfI2SL66bm5TduStCYushw2hCHgG4Kqfu2y6YiNRvLvLYFheUPhX-tq10VhqhtJ6hjxTH8Cbp5FcbdDyereJ88DOHjBtKowmb3upp_sxPib-GjK0NFXnx9HRKinJIJlR3K1oGSWRJZNhL4q4xqmA6rUYUcjQjLJP7cQ8wDlxiubDAweEYLZYScFiadl2Cp7HSd12cRtz74_ABlvGG12IN-7I7p0"/>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface mb-6 z-10">AI Confidence</h3>
+<div class="relative w-48 h-48 flex items-center justify-center z-10">
+<svg class="w-full h-full -rotate-90">
+<circle class="text-surface-container" cx="96" cy="96" fill="transparent" r="88" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-secondary-container neon-glow-cyan transition-all duration-1000" cx="96" cy="96" fill="transparent" r="88" stroke="currentColor" stroke-dasharray="552.92" stroke-dashoffset="38.7" stroke-width="12"></circle>
+</svg>
+<div class="absolute flex flex-col items-center">
+<span class="font-display-lg text-4xl text-on-surface">93%</span>
+<span class="text-[10px] uppercase tracking-widest text-secondary-container font-bold">Stable</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant text-center mt-6 z-10 px-4">AI engine is operating at peak efficiency with minimal hallucinations detected.</p>
+</div>
+<!-- Agent Workload -->
+<div class="md:col-span-5 glass-card rounded-xl p-stack-lg">
+<h3 class="font-title-md text-title-md text-on-surface mb-4">Agent Workload</h3>
+<div class="space-y-6">
+<div class="space-y-2">
+<div class="flex justify-between items-center">
+<span class="text-sm font-medium">Logistics AI</span>
+<span class="text-xs text-on-surface-variant">248 Tasks</span>
+</div>
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container neon-glow-blue" style="width: 85%"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-center">
+<span class="text-sm font-medium">NLP Monitor</span>
+<span class="text-xs text-on-surface-variant">1,102 Messages</span>
+</div>
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary-container neon-glow-cyan" style="width: 62%"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-center">
+<span class="text-sm font-medium">Vision Alpha</span>
+<span class="text-xs text-on-surface-variant">14 Feed Analysis</span>
+</div>
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-tertiary-container" style="width: 92%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Vertical Timeline -->
+<div class="md:col-span-7 glass-card rounded-xl p-stack-lg">
+<h3 class="font-title-md text-title-md text-on-surface mb-4">Recent Dispatches</h3>
+<div class="relative border-l border-outline-variant ml-4 space-y-8 pb-4">
+<!-- Timeline Item 1 -->
+<div class="relative pl-8">
+<div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-secondary-container border-4 border-surface shadow-[0_0_8px_rgba(0,241,254,0.5)]"></div>
+<div class="flex justify-between items-start">
+<div>
+<p class="font-title-md text-sm text-on-surface">Ambulance Dispatch #8812</p>
+<p class="font-body-md text-xs text-on-surface-variant">Sector G-11, Islamabad • 2m ago</p>
+</div>
+<span class="px-2 py-1 bg-green-500/10 text-green-400 text-[10px] font-bold rounded-full border border-green-500/20 uppercase">Resolved</span>
+</div>
+<p class="mt-2 text-xs text-on-surface-variant bg-surface-container-low p-2 rounded-lg border border-white/5">AI redirected route around construction on 9th Ave. Saved 4:12 mins.</p>
+</div>
+<!-- Timeline Item 2 -->
+<div class="relative pl-8">
+<div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-primary-container border-4 border-surface"></div>
+<div class="flex justify-between items-start">
+<div>
+<p class="font-title-md text-sm text-on-surface">Early Warning: Flash Flood</p>
+<p class="font-body-md text-xs text-on-surface-variant">Khyber Pakhtunkhwa • 14m ago</p>
+</div>
+<span class="px-2 py-1 bg-primary-container/20 text-primary text-[10px] font-bold rounded-full border border-primary/20 uppercase">Active</span>
+</div>
+</div>
+<!-- Timeline Item 3 -->
+<div class="relative pl-8 opacity-60">
+<div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-outline border-4 border-surface"></div>
+<div class="flex justify-between items-start">
+<div>
+<p class="font-title-md text-sm text-on-surface">Drone Recon Deployment</p>
+<p class="font-body-md text-xs text-on-surface-variant">Northern Hub • 1h ago</p>
+</div>
+<span class="px-2 py-1 bg-surface-container-highest text-on-surface-variant text-[10px] font-bold rounded-full border border-white/5 uppercase">Standby</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile) -->
+<nav class="md:hidden bg-surface-container/90 dark:bg-surface-container/90 backdrop-blur-lg fixed bottom-0 w-full z-50 rounded-t-xl border-t border-white/5 shadow-[0_-4px_20px_rgba(0,241,254,0.1)] flex justify-around items-center h-20 px-4 pb-safe">
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-all active:scale-90 duration-200">
+<span class="material-symbols-outlined">home</span>
+<span class="text-label-sm font-label-sm mt-1">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-all active:scale-90 duration-200">
+<span class="material-symbols-outlined">smart_toy</span>
+<span class="text-label-sm font-label-sm mt-1">AI Chat</span>
+</button>
+<button class="flex flex-col items-center justify-center text-secondary-container dark:text-secondary-container relative after:content-[''] after:absolute after:-bottom-1 after:w-1 after:h-1 after:bg-secondary-container after:rounded-full active:scale-90 duration-200">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-sm font-label-sm mt-1">Dashboard</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-all active:scale-90 duration-200">
+<span class="material-symbols-outlined">map</span>
+<span class="text-label-sm font-label-sm mt-1">Map</span>
+</button>
+</nav>
+<!-- Navigation Rail (Desktop Simulation via Layout) -->
+<div class="hidden md:flex fixed left-0 top-16 bottom-0 w-16 bg-surface-container/50 border-r border-white/5 flex-col items-center py-8 gap-8">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">home</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">smart_toy</span>
+</button>
+<button class="text-secondary-container border-r-2 border-secondary-container pr-1">
+<span class="material-symbols-outlined">dashboard</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">map</span>
+</button>
+<div class="mt-auto">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</div>
+<script>
+        // Simple micro-interaction for the radial chart
+        document.addEventListener('DOMContentLoaded', () => {
+            const circle = document.querySelector('circle.text-secondary-container');
+            if (circle) {
+                // Trigger animation
+                circle.style.strokeDashoffset = '38.7'; 
+            }
+            
+            // Randomly pulse stats to simulate "agentic background processing"
+            setInterval(() => {
+                const stats = document.querySelectorAll('.font-display-lg');
+                const randomStat = stats[Math.floor(Math.random() * stats.length)];
+                randomStat.classList.add('scale-105', 'transition-transform');
+                setTimeout(() => randomStat.classList.remove('scale-105'), 500);
+            }, 4000);
+        });
+    </script>
+</body></html>

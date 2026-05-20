@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>PakBridge AI | Map Intelligence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Hanken+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        @keyframes pulse-cyan {
+            0% { box-shadow: 0 0 0 0 rgba(0, 241, 254, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(0, 241, 254, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 241, 254, 0); }
+        }
+        .pulse-cyan { animation: pulse-cyan 2s infinite; }
+        
+        .glass-card {
+            background: rgba(15, 19, 31, 0.8);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            border-left: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .status-glow-red { box-shadow: 0 0 8px #ffb4ab; }
+        .status-glow-cyan { box-shadow: 0 0 8px #00f1fe; }
+
+        /* Custom scrollbar for deep navy theme */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #313442; border-radius: 10px; }
+
+        .map-gradient-overlay {
+            background: radial-gradient(circle at center, transparent 0%, rgba(10, 14, 26, 0.4) 100%);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#0035bd",
+                        "on-tertiary-fixed-variant": "#930005",
+                        "secondary-fixed": "#74f5ff",
+                        "background": "#0f131f",
+                        "on-tertiary-container": "#ffece9",
+                        "tertiary-container": "#d71a18",
+                        "tertiary": "#ffb4aa",
+                        "on-primary-container": "#efefff",
+                        "surface": "#0f131f",
+                        "tertiary-fixed": "#ffdad5",
+                        "primary-fixed": "#dde1ff",
+                        "inverse-on-surface": "#2c303d",
+                        "on-primary-fixed": "#001355",
+                        "surface-container-high": "#262a37",
+                        "outline-variant": "#434656",
+                        "on-secondary-fixed": "#002022",
+                        "surface-container": "#1b1f2c",
+                        "on-error": "#690005",
+                        "tertiary-fixed-dim": "#ffb4aa",
+                        "on-secondary-fixed-variant": "#004f54",
+                        "on-background": "#dfe2f3",
+                        "primary-container": "#2d5bff",
+                        "on-tertiary": "#690003",
+                        "on-tertiary-fixed": "#410001",
+                        "primary": "#b8c3ff",
+                        "error": "#ffb4ab",
+                        "outline": "#8e90a2",
+                        "surface-container-highest": "#313442",
+                        "on-secondary-container": "#006a70",
+                        "surface-tint": "#b8c3ff",
+                        "surface-container-low": "#171b28",
+                        "surface-container-lowest": "#0a0e1a",
+                        "error-container": "#93000a",
+                        "secondary": "#ddfcff",
+                        "on-primary": "#002387",
+                        "surface-variant": "#313442",
+                        "on-error-container": "#ffdad6",
+                        "on-surface": "#dfe2f3",
+                        "inverse-primary": "#104af0",
+                        "on-secondary": "#00363a",
+                        "surface-bright": "#353946",
+                        "inverse-surface": "#dfe2f3",
+                        "secondary-container": "#00f1fe",
+                        "on-surface-variant": "#c4c5d9",
+                        "primary-fixed-dim": "#b8c3ff",
+                        "secondary-fixed-dim": "#00dbe7",
+                        "surface-dim": "#0f131f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "stack-md": "12px",
+                        "stack-sm": "4px",
+                        "container-margin": "24px",
+                        "stack-lg": "24px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "title-md": ["Inter"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "body-md": ["Inter"],
+                        "display-lg": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "display-lg": ["56px", {"lineHeight": "64px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "26px", "fontWeight": "400"}],
+                        "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface-container-lowest text-on-surface overflow-hidden">
+<!-- TopAppBar -->
+<header class="bg-surface/80 dark:bg-surface/80 backdrop-blur-xl text-primary dark:text-primary docked full-width top-0 sticky z-50 border-b border-white/10 shadow-sm flex justify-between items-center px-container-margin h-16 w-full">
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center overflow-hidden">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A professional close-up of an emergency responder wearing a tactical headset and a uniform with humanitarian patches. The lighting is dramatic and moody, with cool blue highlights reflecting off the visor, set in a high-tech dark navy command center environment. The overall aesthetic is clean, sharp, and focused on calm authority." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnIh56y2cbY_ILq4Lz_1b-YAhXuMV8FRJgP5Q-QfOQiILJ-or9OPGbM7EZghF9wPQQWj9KaeJx6NiHDMBrVR829PysDRbbMiAk158m4IoY3f_zYv1aHUxrOSjRNihXVt17JpzGuUUJnrVK_z7F9EjxjFET6GN6vuQEYQj8eWrJ_1fg4dJOyiOiRPzi4Ehq4ipqSCq-4Q5MFHuYszqSnnZ_2xbwD_HGst7Ep6wJ6WVu7J1SuAR4mT8o5coy_3bnTd3isLkYohA3nIA"/>
+</div>
+<h1 class="text-title-md font-title-md font-bold text-secondary-container dark:text-secondary-container tracking-tight">PakBridge AI</h1>
+</div>
+<div class="flex items-center gap-base">
+<button class="material-symbols-outlined p-2 hover:bg-white/5 transition-colors rounded-full text-on-surface-variant" data-icon="notifications">notifications</button>
+</div>
+</header>
+<!-- Main Canvas (Map) -->
+<main class="relative h-[calc(100vh-64px-80px)] w-full bg-surface-container-lowest overflow-hidden">
+<!-- Map Container -->
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover opacity-60" data-alt="A highly detailed dark-themed satellite map of a metropolitan city at night. The map features luminous color-coded heatmaps in vibrant neon reds and electric oranges signifying danger zones. The grid-like urban layout is highlighted with subtle blue glowing lines, creating a futuristic, command-center aesthetic suitable for emergency intelligence." data-location="Islamabad" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbOKo5X0e2QNhdq6S3pP58-Zsx3RRwaZPKAyJQpYutTJyYYlEY381_Le8-RIMjfw0SK_yysAOVJ6b6ADjSsv8W0LL7KXriNF4-GJ6olJ82idd1-i5qUEMbsr5pfui7Pv-kmhsAT2eqX7zxr_ttk4RM3cjjVp2V_mhEeAh9JkIBfk63dfo5scGJdvHTddCbN4xTM1WQ9_rNxxZejGpFLJnrmpFIuC7d7zMOwrI5V6X_avCNQiJy-u99XTjxm6GcDLbZbX0FOzUc4Q0"/>
+<div class="absolute inset-0 map-gradient-overlay pointer-events-none"></div>
+</div>
+<!-- Floating Filters -->
+<div class="absolute top-4 left-4 z-20 flex flex-col gap-2 md:flex-row">
+<button class="glass-card flex items-center gap-2 px-4 py-2 rounded-full text-label-sm font-label-sm text-secondary hover:bg-white/10 transition-all active:scale-95">
+<span class="material-symbols-outlined text-[16px] text-secondary-container" data-icon="local_hospital">local_hospital</span>
+                Hospitals
+            </button>
+<button class="glass-card flex items-center gap-2 px-4 py-2 rounded-full text-label-sm font-label-sm text-on-surface-variant hover:bg-white/10 transition-all active:scale-95">
+<span class="material-symbols-outlined text-[16px] text-tertiary" data-icon="flood">flood</span>
+                Floods
+            </button>
+<button class="glass-card flex items-center gap-2 px-4 py-2 rounded-full text-label-sm font-label-sm text-on-surface-variant hover:bg-white/10 transition-all active:scale-95">
+<span class="material-symbols-outlined text-[16px] text-error" data-icon="emergency_home">emergency_home</span>
+                Shelters
+            </button>
+<button class="glass-card flex items-center gap-2 px-4 py-2 rounded-full text-label-sm font-label-sm text-on-surface-variant hover:bg-white/10 transition-all active:scale-95">
+<span class="material-symbols-outlined text-[16px] text-primary" data-icon="car_crash">car_crash</span>
+                Accidents
+            </button>
+</div>
+<!-- Pulse Markers (Simulated) -->
+<div class="absolute top-[40%] left-[60%] z-10">
+<div class="relative">
+<div class="w-4 h-4 bg-error rounded-full pulse-cyan status-glow-red border-2 border-white"></div>
+<div class="absolute -top-10 -left-12 glass-card p-2 rounded-lg text-label-sm font-label-sm text-white w-28 text-center">
+                    Active Fire Zone
+                </div>
+</div>
+</div>
+<div class="absolute bottom-[30%] left-[20%] z-10">
+<div class="relative">
+<div class="w-4 h-4 bg-secondary-container rounded-full pulse-cyan status-glow-cyan border-2 border-white"></div>
+<div class="absolute -top-10 -left-12 glass-card p-2 rounded-lg text-label-sm font-label-sm text-white w-28 text-center">
+                    Medical Hub
+                </div>
+</div>
+</div>
+<!-- Map Controls -->
+<div class="absolute right-4 top-4 z-20 flex flex-col gap-2">
+<button class="glass-card w-10 h-10 flex items-center justify-center rounded-lg hover:bg-white/10 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+<button class="glass-card w-10 h-10 flex items-center justify-center rounded-lg hover:bg-white/10 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="remove">remove</span>
+</button>
+<button class="bg-primary text-on-primary w-10 h-10 flex items-center justify-center rounded-lg shadow-lg hover:brightness-110 mt-4 active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="my_location">my_location</span>
+</button>
+</div>
+<!-- Floating SOS -->
+<div class="absolute right-4 bottom-24 z-20">
+<button class="bg-tertiary-container text-white px-6 py-4 rounded-2xl flex items-center gap-3 shadow-2xl hover:scale-105 active:scale-95 transition-all group">
+<span class="material-symbols-outlined text-[24px] group-hover:animate-ping" data-icon="emergency">emergency</span>
+<span class="font-bold tracking-wider">SOS SIGNAL</span>
+</button>
+</div>
+<!-- Bottom Sheet -->
+<div class="absolute bottom-0 left-0 w-full z-30 transition-transform duration-500 ease-in-out translate-y-[65%]" id="bottom-sheet">
+<div class="glass-card rounded-t-3xl border-t border-white/20 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] h-[500px]">
+<!-- Drag Handle -->
+<div class="w-full flex justify-center py-3 cursor-pointer" onclick="toggleSheet()">
+<div class="w-12 h-1 bg-white/20 rounded-full"></div>
+</div>
+<div class="px-container-margin">
+<div class="flex justify-between items-center mb-6">
+<h2 class="text-title-md font-title-md text-on-surface">Intelligence Feed</h2>
+<span class="text-label-sm font-label-sm px-2 py-1 bg-secondary-container/20 text-secondary-container rounded border border-secondary-container/30 animate-pulse">Live Tracking</span>
+</div>
+<!-- AI Insights -->
+<div class="bg-primary-container/20 border border-primary-container/30 rounded-xl p-4 mb-gutter flex gap-4">
+<span class="material-symbols-outlined text-primary" data-icon="smart_toy">smart_toy</span>
+<div>
+<p class="text-body-md font-body-md text-primary font-bold mb-1">AI Recommendation</p>
+<p class="text-body-md font-body-md text-on-surface-variant">Optimal evacuation route identified via Expressway East. Estimated time to safety: 12 mins. Traffic surge detected on Khyaban-e-Iqbal.</p>
+</div>
+</div>
+<!-- List of Incidents -->
+<div class="space-y-4 overflow-y-auto h-[250px] pr-2">
+<!-- Incident 1 -->
+<div class="flex items-center gap-4 p-3 rounded-lg hover:bg-white/5 transition-colors border border-white/5">
+<div class="w-10 h-10 rounded bg-tertiary-container/30 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined" data-icon="fire_truck">fire_truck</span>
+</div>
+<div class="flex-1">
+<p class="text-body-md font-body-md font-bold text-on-surface">Structural Fire - Sector G6</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Severity: High • 3 Units Dispatched</p>
+</div>
+<button class="text-primary material-symbols-outlined" data-icon="chevron_right">chevron_right</button>
+</div>
+<!-- Incident 2 -->
+<div class="flex items-center gap-4 p-3 rounded-lg hover:bg-white/5 transition-colors border border-white/5">
+<div class="w-10 h-10 rounded bg-secondary-container/20 flex items-center justify-center text-secondary-container">
+<span class="material-symbols-outlined" data-icon="water_drop">water_drop</span>
+</div>
+<div class="flex-1">
+<p class="text-body-md font-body-md font-bold text-on-surface">Flash Flood Alert</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Rising levels at Rawal Dam • Watch Phase</p>
+</div>
+<button class="text-primary material-symbols-outlined" data-icon="chevron_right">chevron_right</button>
+</div>
+<!-- Incident 3 -->
+<div class="flex items-center gap-4 p-3 rounded-lg hover:bg-white/5 transition-colors border border-white/5 opacity-60">
+<div class="w-10 h-10 rounded bg-on-surface-variant/20 flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="traffic">traffic</span>
+</div>
+<div class="flex-1">
+<p class="text-body-md font-body-md font-bold text-on-surface">Multi-Vehicle Collision</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Sector H8 Intersection • Clearing</p>
+</div>
+<button class="text-primary material-symbols-outlined" data-icon="chevron_right">chevron_right</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="bg-surface-container/90 dark:bg-surface-container/90 backdrop-blur-lg fixed bottom-0 w-full z-50 rounded-t-xl border-t border-white/5 shadow-[0_-4px_20px_rgba(0,241,254,0.1)] flex justify-around items-center h-20 px-4 pb-safe">
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="text-label-sm font-label-sm">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all">
+<span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+<span class="text-label-sm font-label-sm">AI Chat</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-label-sm font-label-sm">Dashboard</span>
+</button>
+<button class="flex flex-col items-center justify-center text-secondary-container dark:text-secondary-container relative after:content-[''] after:absolute after:-bottom-1 after:w-1 after:h-1 after:bg-secondary-container after:rounded-full scale-90 transition-all">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+<span class="text-label-sm font-label-sm">Map</span>
+</button>
+</nav>
+<script>
+        let sheetOpen = false;
+        function toggleSheet() {
+            const sheet = document.getElementById('bottom-sheet');
+            if (sheetOpen) {
+                sheet.style.transform = 'translateY(65%)';
+            } else {
+                sheet.style.transform = 'translateY(0%)';
+            }
+            sheetOpen = !sheetOpen;
+        }
+
+        // Initialize map visuals or light interactions
+        document.addEventListener('DOMContentLoaded', () => {
+            // Subtle motion for markers
+            const markers = document.querySelectorAll('.pulse-cyan');
+            markers.forEach((marker, i) => {
+                marker.style.animationDelay = `${i * 0.5}s`;
+            });
+        });
+    </script>
+</body></html>

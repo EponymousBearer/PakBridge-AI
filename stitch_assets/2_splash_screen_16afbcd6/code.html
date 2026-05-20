@@ -1,0 +1,225 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>PakBridge AI - Splash</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Hanken+Grotesk:wght@600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 0; }
+            50% { opacity: 0.5; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+        @keyframes subtle-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes grid-move {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(40px); }
+        }
+        .animate-pulse-ring {
+            animation: pulse-ring 3s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+        }
+        .pakistan-grid {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(0, 241, 254, 0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(0, 241, 254, 0.05) 1px, transparent 1px);
+            mask-image: radial-gradient(circle at center, black, transparent 80%);
+        }
+        .glass-blur {
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#0035bd",
+                        "on-tertiary-fixed-variant": "#930005",
+                        "secondary-fixed": "#74f5ff",
+                        "background": "#0f131f",
+                        "on-tertiary-container": "#ffece9",
+                        "tertiary-container": "#d71a18",
+                        "tertiary": "#ffb4aa",
+                        "on-primary-container": "#efefff",
+                        "surface": "#0f131f",
+                        "tertiary-fixed": "#ffdad5",
+                        "primary-fixed": "#dde1ff",
+                        "inverse-on-surface": "#2c303d",
+                        "on-primary-fixed": "#001355",
+                        "surface-container-high": "#262a37",
+                        "outline-variant": "#434656",
+                        "on-secondary-fixed": "#002022",
+                        "surface-container": "#1b1f2c",
+                        "on-error": "#690005",
+                        "tertiary-fixed-dim": "#ffb4aa",
+                        "on-secondary-fixed-variant": "#004f54",
+                        "on-background": "#dfe2f3",
+                        "primary-container": "#2d5bff",
+                        "on-tertiary": "#690003",
+                        "on-tertiary-fixed": "#410001",
+                        "primary": "#b8c3ff",
+                        "error": "#ffb4ab",
+                        "outline": "#8e90a2",
+                        "surface-container-highest": "#313442",
+                        "on-secondary-container": "#006a70",
+                        "surface-tint": "#b8c3ff",
+                        "surface-container-low": "#171b28",
+                        "surface-container-lowest": "#0a0e1a",
+                        "error-container": "#93000a",
+                        "secondary": "#ddfcff",
+                        "on-primary": "#002387",
+                        "surface-variant": "#313442",
+                        "on-error-container": "#ffdad6",
+                        "on-surface": "#dfe2f3",
+                        "inverse-primary": "#104af0",
+                        "on-secondary": "#00363a",
+                        "surface-bright": "#353946",
+                        "inverse-surface": "#dfe2f3",
+                        "secondary-container": "#00f1fe",
+                        "on-surface-variant": "#c4c5d9",
+                        "primary-fixed-dim": "#b8c3ff",
+                        "secondary-fixed-dim": "#00dbe7",
+                        "surface-dim": "#0f131f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "stack-md": "12px",
+                        "stack-sm": "4px",
+                        "container-margin": "24px",
+                        "stack-lg": "24px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "title-md": ["Inter"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "body-md": ["Inter"],
+                        "display-lg": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "display-lg": ["56px", {"lineHeight": "64px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "26px", "fontWeight": "400"}],
+                        "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface-container-lowest text-on-surface flex flex-col min-h-screen overflow-hidden"><!-- Background Grid -->
+<div class="fixed inset-0 pakistan-grid opacity-30 z-0"></div>
+<!-- Atmospheric Lighting -->
+<div class="fixed top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary-container/10 rounded-full blur-[120px] z-0"></div>
+<div class="fixed bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary-container/10 rounded-full blur-[120px] z-0"></div>
+
+<div class="relative z-10 flex flex-col items-center justify-center min-h-screen w-full px-container-margin">
+    <div class="flex flex-col items-center">
+        <!-- Center Logo & Pulse -->
+        <main class="relative flex flex-col items-center justify-center mb-12">
+            <div class="relative flex items-center justify-center mb-stack-lg animate-[subtle-float_4s_ease-in-out_infinite]">
+                <!-- Pulse Rings -->
+                <div class="absolute w-32 h-32 rounded-full border border-secondary-container/40 animate-pulse-ring"></div>
+                <div class="absolute w-32 h-32 rounded-full border border-secondary-container/20 animate-pulse-ring [animation-delay:1s]"></div>
+                <div class="absolute w-32 h-32 rounded-full border border-secondary-container/10 animate-pulse-ring [animation-delay:2s]"></div>
+                <!-- Logo Container -->
+                <div class="w-24 h-24 flex items-center justify-center bg-surface-container-high glass-blur rounded-2xl border border-white/10 shadow-[0_0_40px_rgba(0,241,254,0.15)] relative overflow-hidden group">
+                    <!-- Glowing edge effect -->
+                    <div class="absolute inset-0 bg-gradient-to-tr from-secondary-container/20 to-transparent opacity-50"></div>
+                    <!-- Icon -->
+                    <span class="material-symbols-outlined text-secondary-container text-5xl relative z-10" style="font-variation-settings: 'FILL' 1;">
+                        hub
+                    </span>
+                </div>
+            </div>
+            <!-- Typography -->
+            <div class="text-center space-y-stack-sm max-w-sm">
+                <h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface tracking-tight">
+                    PakBridge <span class="text-secondary-container">AI</span>
+                </h1>
+                <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                    Agentic Crisis Intelligence for Pakistan
+                </p>
+            </div>
+        </main>
+
+        <!-- Bottom Loading Section (Now part of central unit) -->
+        <footer class="w-full flex flex-col items-center space-y-stack-md mt-4">
+            <!-- Progress Bar Container -->
+            <div class="w-48 h-[2px] bg-white/5 rounded-full overflow-hidden relative">
+                <div class="absolute top-0 left-0 h-full bg-secondary-container shadow-[0_0_10px_rgba(0,241,254,0.8)] transition-all duration-300 ease-out" id="progress-bar" style="width: 0%"></div>
+            </div>
+            <!-- Status Text -->
+            <div class="flex items-center gap-base">
+                <span class="w-1.5 h-1.5 rounded-full bg-secondary-container animate-pulse"></span>
+                <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest opacity-70" id="status-text">
+                    Initializing Neural Bridge
+                </p>
+            </div>
+        </footer>
+    </div>
+</div>
+
+<!-- Decorative Corner Elements -->
+<div class="fixed top-8 left-8 border-t border-l border-white/10 w-12 h-12 z-10"></div>
+<div class="fixed top-8 right-8 border-t border-r border-white/10 w-12 h-12 z-10"></div>
+<div class="fixed bottom-8 left-8 border-b border-l border-white/10 w-12 h-12 z-10"></div>
+<div class="fixed bottom-8 right-8 border-b border-r border-white/10 w-12 h-12 z-10"></div>
+<script>
+    const progressBar = document.getElementById('progress-bar');
+    const statusText = document.getElementById('status-text');
+    const statuses = [
+        "Syncing Satellite Telemetry",
+        "Analyzing Regional Volatility",
+        "Establishing Command Protocol",
+        "PakBridge AI Online"
+    ];
+
+    let progress = 0;
+    let statusIndex = 0;
+
+    const interval = setInterval(() => {
+        progress += Math.random() * 8;
+        if (progress >= 100) {
+            progress = 100;
+            clearInterval(interval);
+        }
+        progressBar.style.width = `${progress}%`;
+
+        const targetStatusIndex = Math.min(
+            Math.floor((progress / 100) * statuses.length),
+            statuses.length - 1
+        );
+        
+        if (targetStatusIndex !== statusIndex) {
+            statusIndex = targetStatusIndex;
+            statusText.style.opacity = '0';
+            setTimeout(() => {
+                statusText.textContent = statuses[statusIndex];
+                statusText.style.opacity = '0.7';
+            }, 200);
+        }
+    }, 150);
+</script></body></html>

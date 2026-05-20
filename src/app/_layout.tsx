@@ -1,16 +1,23 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import React from 'react';
+import { Stack } from 'expo-router';
 import { useColorScheme } from 'react-native';
+import '../global.css';
+import { ThemeProvider, DarkTheme, DefaultTheme } from '@react-navigation/native';
+import { useAppStore } from '@/store/appStore';
 
-import { AnimatedSplashOverlay } from '@/components/animated-icon';
-import AppTabs from '@/components/app-tabs';
+import NotificationBanner from '@/components/NotificationBanner';
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+export default function RootLayout() {
+  const scheme = useColorScheme();
+  
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <AnimatedSplashOverlay />
-      <AppTabs />
+    <ThemeProvider value={scheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <NotificationBanner />
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="index" />
+        <Stack.Screen name="onboarding" options={{ gestureEnabled: false }} />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="workflow/[id]" options={{ presentation: 'modal' }} />
+      </Stack>
     </ThemeProvider>
   );
 }
